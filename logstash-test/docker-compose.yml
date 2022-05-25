@@ -1,0 +1,19 @@
+version: "3.2"
+
+services:
+  logstash:
+    # image: logstash:7.17.3
+    build:
+      context: .
+    volumes:
+      - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./pipeline:/usr/share/logstash/pipeline
+      # - ./jars:/usr/share/logstash/logstash-core/lib/jars
+      #- ./hosts:/etc/hosts
+    ports:
+      - "5044:5044"
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx512m -Xms512m"
